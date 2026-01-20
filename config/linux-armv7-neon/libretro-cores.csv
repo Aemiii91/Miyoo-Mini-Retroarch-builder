@@ -1,0 +1,6 @@
+name,dir,url,git_branch,enabled,command,makefile,subdir,args
+gpsp,libretro-gpsp,https://github.com/libretro/gpsp.git,master,YES,GENERIC,Makefile,.,
+pcsx_rearmed,libretro-pcsx_rearmed,https://github.com/libretro/pcsx_rearmed.git,master,YES,GENERIC,Makefile.libretro,.,DYNAREC=ari64 HAVE_NEON=1 BUILTIN_GPU=neon
+yabause,libretro-yabause,https://github.com/libretro/yabause.git,master,YES,GENERIC,Makefile,yabause/src/libretro,
+km_pcsx_hd_xtreme,libretro-km_pcsx_hd_xtreme,https://github.com/KMFDManic/pcsx_rearmed.git,master,YES,GENERIC,Makefile.libretro,.,DYNAREC=ari64 HAVE_NEON=1 BUILTIN_GPU=neon
+km_m2K3_hd_xtreme,libretro-km_m2K3_hd_xtreme,https://github.com/KMFDManic/mame2003-xtreme.git,master,YES,GENERIC,Makefile,.,DYNAREC=ari64 HAVE_NEON=1 BUILTIN_GPU=neon
