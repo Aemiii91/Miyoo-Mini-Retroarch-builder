@@ -32,7 +32,7 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.set-packages.outputs.packages) }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Initialize workspace
       run: make init
@@ -41,7 +41,7 @@ jobs:
       run: make build/${{ matrix.package }}
 
     - name: Upload the build artifacts
-      uses: actions/upload-artifact@v3.0.0
+      uses: actions/upload-artifact@v4
       with:
         name: RetroArch cores
         path: build/*
