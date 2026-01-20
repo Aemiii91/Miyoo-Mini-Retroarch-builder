@@ -36,8 +36,8 @@ jobs:
     - name: Initialize workspace
       run: make init
 
-    - name: Build the cores
-      run: make build
+    - name: Build the selected core
+      run: make build/${{ matrix.package }}
 
     - name: Upload the build artifacts
       uses: actions/upload-artifact@v3.0.0
