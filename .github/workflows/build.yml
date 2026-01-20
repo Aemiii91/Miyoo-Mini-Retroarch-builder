@@ -37,13 +37,13 @@ jobs:
     - name: Initialize workspace
       run: make init
 
-    - name: Build the selected core
+    - name: Build the selected package
       run: make build/${{ matrix.package }}
 
     - name: Upload the build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: RetroArch cores
-        path: build/*
+        name: RetroArch cores for ${{ matrix.package }}
+        path: build/${{ matrix.package }}/*
         if-no-files-found: error
         retention-days: 90
