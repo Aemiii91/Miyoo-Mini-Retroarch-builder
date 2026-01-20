@@ -3,9 +3,9 @@ name: Build Cores via Docker
 on:
   workflow_dispatch:
     inputs:
-      packages:
+      recipes:
         type: choice
-        description: 'Select which packages to build'
+        description: 'Select which recipes to build'
         options:
           - "all"
           - "classic_armv7_a7"
@@ -13,37 +13,37 @@ on:
           - "linux-armv7-neon_test"
 
 jobs:
-  set-packages:
+  set-recipes:
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.set-packages.outputs.packages }}
+      recipes: ${{ steps.set-recipes.outputs.recipes }}
     steps:
-    - id: set-packages
+    - id: set-recipes
       run: |
-        if [ "${{ inputs.packages }}" == "all" ]; then
-          echo "packages=[\"classic_armv7_a7\",\"linux-armv7-neon\",\"linux-armv7-neon_test\"]" >> $GITHUB_OUTPUT
+        if [ "${{ inputs.recipes }}" == "all" ]; then
+          echo "recipes=[\"classic_armv7_a7\",\"linux-armv7-neon\",\"linux-armv7-neon_test\"]" >> $GITHUB_OUTPUT
         else
-          echo "packages=[\"${{ inputs.packages }}\"]" >> $GITHUB_OUTPUT
+          echo "recipes=[\"${{ inputs.recipes }}\"]" >> $GITHUB_OUTPUT
         fi
   build:
-    needs: set-packages
+    needs: set-recipes
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: ${{ fromJson(needs.set-packages.outputs.packages) }}
+        recipe: ${{ fromJson(needs.set-recipes.outputs.recipes) }}
     steps:
     - uses: actions/checkout@v4
 
     - name: Initialize workspace
       run: make init
 
-    - name: Build the selected package
-      run: make build/${{ matrix.package }}
+    - name: Build the selected recipe
+      run: make build/${{ matrix.recipe }}
 
     - name: Upload the build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: RetroArch cores for ${{ matrix.package }}
-        path: build/${{ matrix.package }}/*
+        name: RetroArch cores for ${{ matrix.recipe }}
+        path: build/${{ matrix.recipe }}/*
         if-no-files-found: error
         retention-days: 90
