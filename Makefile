@@ -26,7 +26,7 @@ dist/libretro_cores_%.7z: build/%
 clean:
 	rm -rf build/*
 	rm -rf dist/*
-	rm -rf libretro-super/libretro-*
+	rm -rf libretro-super/libretro-*/
 
 reset-submodules:
 	git submodule foreach --recursive git clean -xfd
