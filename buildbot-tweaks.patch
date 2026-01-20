@@ -61,18 +61,3 @@
  
  		status=$?
  		echo "$status"
-@@ -1696,6 +1704,14 @@
- 			MESSAGE="retroarch:	[status: done] [$jobid]"
- 			echo buildbot job: $MESSAGE >> "$LOGFILE"
- 			echo "Packaging"
-+			mkdir -p dist/.retroarch/assets/rgui/font dist/.retroarch/filters/video dist/.retroarch/filters/audio
-+			cp retroarch_multilang COPYING dist/
-+			cp retroarch_miyoo354 COPYING dist/
-+			cp retroarch.cfg dist/.retroarch/
-+			cp libretro-common/audio/dsp_filters/*.dsp dist/.retroarch/filters/audio/
-+			cp gfx/video_filters/*.filt dist/.retroarch/filters/video/
-+			cp media/assets/rgui/font/* dist/.retroarch/assets/rgui/font/
-+			ls -lahR dist/
- 		else
- 			MESSAGE="retroarch:	[status: fail] [$jobid]"
- 			echo buildbot job: $MESSAGE >> "$LOGFILE"

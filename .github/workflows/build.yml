@@ -1,0 +1,48 @@
+name: Build Cores via Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        type: choice
+        options:
+          - "all"
+          - "classic_armv7_a7"
+          - "linux-armv7-neon"
+          - "linux-armv7-neon_test"
+
+jobs:
+  set-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.set-packages.outputs.packages }}
+    steps:
+    - id: set-packages
+      run: |
+        if [ "${{ inputs.packages }}" == "all" ]; then
+          echo "packages=[\"classic_armv7_a7\",\"linux-armv7-neon\",\"linux-armv7-neon_test\"]" >> $GITHUB_ENV
+        else
+          echo "packages=[\"${{ inputs.packages }}\"]" >> $GITHUB_ENV
+        fi
+  build:
+    needs: set-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.set-packages.outputs.packages) }}
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Initialize workspace
+      run: make init
+
+    - name: Build the cores
+      run: make build
+
+    - name: Upload the build artifacts
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: RetroArch cores
+        path: build/*
+        if-no-files-found: error
+        retention-days: 90

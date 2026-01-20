@@ -1,2 +1,0 @@
-retroarch retroarch https://github.com/schmurtzm/RetroArch-MiyoMini.git PROJECT YES . BUILD=YES
-assets assets https://github.com/libretro/retroarch-assets.git ASSETS YES retroarch/media

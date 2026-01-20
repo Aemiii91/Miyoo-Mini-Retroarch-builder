@@ -1,7 +1,7 @@
-# Miyoo-Mini - Retroarch-builder
+# RetroArch cores build-bot for Linux ARMv7
 
-Retroarch & Libretro Cores automatic build for Miyoo Mini
+## Recipe format
 
-Fork from TechDevangelist/miyoomini-buildbot, the only difference is the libretro-super submodule has been updated.
-
-Can be automatically compiled on github thanks to workflow / actions.
+```sh
+[NAME] [DIR] [URL] [GIT_BRANCH] [ENABLED] [COMMAND] [MAKEFILE] [SUBDIR] [ARGS...]
+```
