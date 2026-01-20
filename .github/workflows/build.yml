@@ -5,6 +5,7 @@ on:
     inputs:
       packages:
         type: choice
+        description: 'Select which packages to build'
         options:
           - "all"
           - "classic_armv7_a7"
@@ -20,9 +21,9 @@ jobs:
     - id: set-packages
       run: |
         if [ "${{ inputs.packages }}" == "all" ]; then
-          echo "packages=[\"classic_armv7_a7\",\"linux-armv7-neon\",\"linux-armv7-neon_test\"]" >> $GITHUB_ENV
+          echo "packages=[\"classic_armv7_a7\",\"linux-armv7-neon\",\"linux-armv7-neon_test\"]" >> $GITHUB_OUTPUT
         else
-          echo "packages=[\"${{ inputs.packages }}\"]" >> $GITHUB_ENV
+          echo "packages=[\"${{ inputs.packages }}\"]" >> $GITHUB_OUTPUT
         fi
   build:
     needs: set-packages
